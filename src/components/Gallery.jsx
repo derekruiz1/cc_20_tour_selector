@@ -4,11 +4,11 @@ import TourCard from "./TourCard";
 //Gallery is responsible for fetching the list of tours and rendering the list
 
 const Gallery = ({tours, setTours, onRemove}) => {
-    //local state to manage the loading state
+    //Handeling the loading and error states
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
 
-    //Function to fetch tours from the API
+    //Fetching the tours from the API
     const fetchTours = async () => {
         try {
             const response = await fetch("https://api.allorigins.win/raw?url=https://course-api.com/react-tours-project");
@@ -32,23 +32,23 @@ const Gallery = ({tours, setTours, onRemove}) => {
     };
         
 
-//run the fetchTours function when the component mounts
+//Fetch the tours when the component mounts
 useEffect(() => {
     fetchTours();
 }, []);
 
-//Render the loading state 
+//Shows loading state
 if (loading) {
     return <h2>Loading...</h2>;
 };
-//Render the error state 
+//Shows and error message if there is an error
 if (error) {
     return (
             <h2>Something went wrong, try again...</h2>
     );
 }
 
-//Render if no tours are available
+//Gives an option to refresh if there are no tours
 if (tours.length === 0) {
     return (
         <div>
@@ -57,7 +57,7 @@ if (tours.length === 0) {
         </div>
     )
 }
-//Render the list of tours
+//Shows the list of tours
 
 return (
     <div>
