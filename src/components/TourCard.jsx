@@ -1,6 +1,6 @@
 import React,{useState} from "react";
 
-//TourCard renders individual tour details
+//Shows individual tour card with details
 const TourCard = ({id, name, info, price, image, onRemove}) => {
     //local state to manage the read more/less functionality
     const [readMore, setReadMore] = useState(false);
@@ -18,7 +18,7 @@ const TourCard = ({id, name, info, price, image, onRemove}) => {
                 {readMore ? "Show Less" : "Read More"}
             </button>
 
-            {/*Button to remove the tour card*/}
+            {/*Remove Button on Tour Card*/}
             <button className="remove-btn" onClick={() => onRemove(id)}>
                 Not Interested
             </button>
