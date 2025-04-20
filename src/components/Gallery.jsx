@@ -1,14 +1,12 @@
-import React,{useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import TourCard from "./TourCard";
-import DestinationSelector from "./DestinationSelector";
 
 //Gallery is responsible for fetching the list of tours and rendering the list
 
-const Gallery = ({tours, setTours, onRemove}) => {
-    //Handeling the loading and error states
+const Gallery = ({ tours, setTours, onRemove }) => {
+    //Handling the loading and error states
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    const [selectedDestination, setSelectedDestination] = useState('All Destinations');
 
     //Fetching the tours from the API
     const fetchTours = async () => {
@@ -32,47 +30,41 @@ const Gallery = ({tours, setTours, onRemove}) => {
             setLoading(false);
         }
     };
-        
 
-//Fetch the tours when the component mounts
-useEffect(() => {
-    fetchTours();
-}, []);
+    //Fetch the tours when the component mounts
+    useEffect(() => {
+        fetchTours();
+    }, []);
 
-//Shows loading state
-if (loading) {
-    return <h2>Loading...</h2>;
-};
-//Shows and error message if there is an error
-if (error) {
-    return (
-            <h2>Something went wrong, try again...</h2>
-    );
-}
+    //Shows loading state
+    if (loading) {
+        return <h2>Loading...</h2>;
+    }
+    //Shows an error message if there is an error
+    if (error) {
+        return <h2>Something went wrong, try again...</h2>;
+    }
 
-//Gives an option to refresh if there are no tours
-if (tours.length === 0) {
+    //Gives an option to refresh if there are no tours
+    if (tours.length === 0) {
+        return (
+            <div>
+                <h2>No tours left. Refresh to reload.</h2>
+                <button onClick={fetchTours}>Refresh</button>
+            </div>
+        );
+    }
+
+    //Shows the list of tours
     return (
         <div>
-            <h2>No tours available</h2>
-            <button onClick={fetchTours}>Refresh</button>
+            <section className="gallery">
+                {tours.map((tour) => (
+                    <TourCard key={tour.id} {...tour} onRemove={onRemove} />
+                ))}
+            </section>
         </div>
-    )
-}
-//Shows the list of tours
-
-return (
-    <div>
-        <section className="gallery">
-        {tours.map((tour) => (
-            <TourCard 
-            key={tour.id} 
-            {...tour} 
-            onRemove={onRemove} />
-        ))}
-        </section>
-    </div>
-);
-}
+    );
+};
 
 export default Gallery;

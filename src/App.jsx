@@ -11,7 +11,9 @@ function App() {
 
   //Function to remove a tour from the list
   const onRemove = (id) => {
-    setFilteredTours(filteredTours.filter((tour) => tour.id !== id));
+    const updatedTours = tours.filter((tour) => tour.id !== id);
+    setTours(updatedTours); // Update the main tours state
+    setFilteredTours(updatedTours); // Update the filtered tours state
   };
 
   //Function to handle destination filtering
