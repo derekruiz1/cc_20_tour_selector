@@ -1,5 +1,6 @@
 import React,{useEffect, useState} from "react";
 import TourCard from "./TourCard";
+import DestinationSelector from "./DestinationSelector";
 
 //Gallery is responsible for fetching the list of tours and rendering the list
 
@@ -7,6 +8,7 @@ const Gallery = ({tours, setTours, onRemove}) => {
     //Handeling the loading and error states
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
+    const [selectedDestination, setSelectedDestination] = useState('All Destinations');
 
     //Fetching the tours from the API
     const fetchTours = async () => {
